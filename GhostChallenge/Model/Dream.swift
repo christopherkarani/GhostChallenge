@@ -15,3 +15,12 @@ struct Dream {
     var description: String
 }
 
+// A way to see if two dreams are the same
+extension Dream: Equatable {
+    static func ==(_ lhs: Dream, _ rhs: Dream) -> Bool {
+        let titleCheck = lhs.title == rhs.title
+        let dateCheck = lhs.dateString == rhs.dateString
+        return titleCheck && dateCheck
+    }
+}
+

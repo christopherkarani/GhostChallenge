@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3C34710C20A45E6200034B6F /* JSONPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C34710B20A45E6200034B6F /* JSONPlaceholder.swift */; };
+		3C34710E20A45E9000034B6F /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C34710D20A45E9000034B6F /* Resource.swift */; };
+		3C34711320A4723E00034B6F /* NotificationName_Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C34711220A4723D00034B6F /* NotificationName_Ext.swift */; };
+		3C60186920A368B7009F0BE7 /* DateFmt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C60186820A368B7009F0BE7 /* DateFmt.swift */; };
+		3C60186B20A36AEF009F0BE7 /* RandomNumberGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C60186A20A36AEF009F0BE7 /* RandomNumberGenerator.swift */; };
+		3C60186E20A36D2F009F0BE7 /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C60186D20A36D2F009F0BE7 /* WebService.swift */; };
+		3CC9252020A206EE00FDB4BA /* MainTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC9251F20A206EE00FDB4BA /* MainTableViewDataSource.swift */; };
 		3CE584B520A17F3400FBB5D4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE584B420A17F3400FBB5D4 /* AppDelegate.swift */; };
 		3CE584B720A17F3400FBB5D4 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE584B620A17F3400FBB5D4 /* MainViewController.swift */; };
 		3CE584BA20A17F3400FBB5D4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3CE584B820A17F3400FBB5D4 /* Main.storyboard */; };
@@ -19,10 +26,16 @@
 		3CE584D820A1A11800FBB5D4 /* UIColor_Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE584D720A1A11800FBB5D4 /* UIColor_Ext.swift */; };
 		3CE584DA20A1A5B700FBB5D4 /* DreamData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE584D920A1A5B700FBB5D4 /* DreamData.swift */; };
 		3CE584DC20A1A69C00FBB5D4 /* TableViewCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE584DB20A1A69C00FBB5D4 /* TableViewCustomCell.swift */; };
-		3CE584DE20A1AB2800FBB5D4 /* DreamDetailedDescritiption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE584DD20A1AB2800FBB5D4 /* DreamDetailedDescritiption.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3C34710B20A45E6200034B6F /* JSONPlaceholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONPlaceholder.swift; sourceTree = "<group>"; };
+		3C34710D20A45E9000034B6F /* Resource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resource.swift; sourceTree = "<group>"; };
+		3C34711220A4723D00034B6F /* NotificationName_Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationName_Ext.swift; sourceTree = "<group>"; };
+		3C60186820A368B7009F0BE7 /* DateFmt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFmt.swift; sourceTree = "<group>"; };
+		3C60186A20A36AEF009F0BE7 /* RandomNumberGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomNumberGenerator.swift; sourceTree = "<group>"; };
+		3C60186D20A36D2F009F0BE7 /* WebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebService.swift; sourceTree = "<group>"; };
+		3CC9251F20A206EE00FDB4BA /* MainTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewDataSource.swift; sourceTree = "<group>"; };
 		3CE584B120A17F3400FBB5D4 /* GhostChallenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GhostChallenge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3CE584B420A17F3400FBB5D4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3CE584B620A17F3400FBB5D4 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -37,7 +50,6 @@
 		3CE584D720A1A11800FBB5D4 /* UIColor_Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor_Ext.swift; sourceTree = "<group>"; };
 		3CE584D920A1A5B700FBB5D4 /* DreamData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamData.swift; sourceTree = "<group>"; };
 		3CE584DB20A1A69C00FBB5D4 /* TableViewCustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCustomCell.swift; sourceTree = "<group>"; };
-		3CE584DD20A1AB2800FBB5D4 /* DreamDetailedDescritiption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamDetailedDescritiption.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +63,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3C34710F20A4721D00034B6F /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				3C34711220A4723D00034B6F /* NotificationName_Ext.swift */,
+			);
+			path = Notifications;
+			sourceTree = "<group>";
+		};
+		3C60186720A368A9009F0BE7 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				3C60186820A368B7009F0BE7 /* DateFmt.swift */,
+				3C60186A20A36AEF009F0BE7 /* RandomNumberGenerator.swift */,
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
+		3C60186C20A36CDC009F0BE7 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				3C60186D20A36D2F009F0BE7 /* WebService.swift */,
+				3C34710B20A45E6200034B6F /* JSONPlaceholder.swift */,
+				3C34710D20A45E9000034B6F /* Resource.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
 		3CE584A820A17F3400FBB5D4 = {
 			isa = PBXGroup;
 			children = (
@@ -70,6 +109,9 @@
 		3CE584B320A17F3400FBB5D4 /* GhostChallenge */ = {
 			isa = PBXGroup;
 			children = (
+				3C34710F20A4721D00034B6F /* Notifications */,
+				3C60186C20A36CDC009F0BE7 /* Network */,
+				3C60186720A368A9009F0BE7 /* Util */,
 				3CE584CE20A183C700FBB5D4 /* Protocols */,
 				3CE584CD20A183BE00FBB5D4 /* Extensions */,
 				3CE584CC20A182B300FBB5D4 /* Controller */,
@@ -89,6 +131,7 @@
 			children = (
 				3CE584C620A17F9F00FBB5D4 /* Dream.swift */,
 				3CE584D920A1A5B700FBB5D4 /* DreamData.swift */,
+				3CC9251F20A206EE00FDB4BA /* MainTableViewDataSource.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -107,7 +150,6 @@
 			isa = PBXGroup;
 			children = (
 				3CE584B620A17F3400FBB5D4 /* MainViewController.swift */,
-				3CE584DD20A1AB2800FBB5D4 /* DreamDetailedDescritiption.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -201,14 +243,20 @@
 			files = (
 				3CE584DC20A1A69C00FBB5D4 /* TableViewCustomCell.swift in Sources */,
 				3CE584B720A17F3400FBB5D4 /* MainViewController.swift in Sources */,
-				3CE584DE20A1AB2800FBB5D4 /* DreamDetailedDescritiption.swift in Sources */,
+				3C60186E20A36D2F009F0BE7 /* WebService.swift in Sources */,
+				3C34710E20A45E9000034B6F /* Resource.swift in Sources */,
+				3C60186920A368B7009F0BE7 /* DateFmt.swift in Sources */,
+				3CC9252020A206EE00FDB4BA /* MainTableViewDataSource.swift in Sources */,
+				3C34710C20A45E6200034B6F /* JSONPlaceholder.swift in Sources */,
 				3CE584D220A1893600FBB5D4 /* InputFormView.swift in Sources */,
 				3CE584D420A18A1C00FBB5D4 /* InputTextFieldView.swift in Sources */,
 				3CE584B520A17F3400FBB5D4 /* AppDelegate.swift in Sources */,
+				3C34711320A4723E00034B6F /* NotificationName_Ext.swift in Sources */,
 				3CE584D620A18F5E00FBB5D4 /* UsingProgrammabaleConstraints.swift in Sources */,
 				3CE584DA20A1A5B700FBB5D4 /* DreamData.swift in Sources */,
 				3CE584C720A17F9F00FBB5D4 /* Dream.swift in Sources */,
 				3CE584D820A1A11800FBB5D4 /* UIColor_Ext.swift in Sources */,
+				3C60186B20A36AEF009F0BE7 /* RandomNumberGenerator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

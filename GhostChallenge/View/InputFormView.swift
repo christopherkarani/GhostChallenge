@@ -12,7 +12,6 @@ protocol InputFormViewDelegate {
     func didTapSaveButton(forView view: InputFormView)
 }
 
-
 // This View handles Input from the User
 class InputFormView: UIView, UsingProgrammabaleConstraints {
     
@@ -21,9 +20,8 @@ class InputFormView: UIView, UsingProgrammabaleConstraints {
     let dreamTextField = InputTextFieldView("Dream Title", 105)
     let dateField : InputTextFieldView = {
         let inputTextField = InputTextFieldView("Date", 50)
-        let formatter = DateFormatter()
-        formatter.dateFormat = "d MMM yyyy"
-        inputTextField.inputTextField.text = formatter.string(from: Date())
+        let dateMachine = DateFmt(date: Date())
+        inputTextField.inputTextField.text = dateMachine.dateString
         return inputTextField
     }()
     
@@ -75,7 +73,6 @@ class InputFormView: UIView, UsingProgrammabaleConstraints {
         print("save button tapped from within input View")
         delegate?.didTapSaveButton(forView: self)
         dreamTextField.inputTextField.text = nil
-        dateField.inputTextField.text = nil
         tagsField.inputTextField.text = nil
         descriptionTextView.text = nil
     }
@@ -89,6 +86,45 @@ class InputFormView: UIView, UsingProgrammabaleConstraints {
             uiComponentStackView.widthAnchor.constraint(equalTo: widthAnchor, constant: -12),
             uiComponentStackView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 1/3)
         ])
+        
+        // adding a seperatorLine for UX purposes
+        setupSeperators()
+    }
+    
+    fileprivate func setupSeperators() {
+        // adding a seperatorLine for UX purposes
+        let dreamTitleLineSeparator = UIView()
+        dreamTitleLineSeparator.backgroundColor = .lightGray
+        dreamTitleLineSeparator.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(dreamTitleLineSeparator)
+        NSLayoutConstraint.activate([
+            dreamTitleLineSeparator.topAnchor.constraint(equalTo: dreamTextField.bottomAnchor, constant: -20),
+            dreamTitleLineSeparator.leftAnchor.constraint(equalTo: dreamTextField.leftAnchor),
+            dreamTitleLineSeparator.widthAnchor.constraint(equalTo: dreamTextField.widthAnchor),
+            dreamTitleLineSeparator.heightAnchor.constraint(equalToConstant: 0.7)
+            ])
+        
+        let dateTitleSeperatorLine = UIView()
+        dateTitleSeperatorLine.backgroundColor = .lightGray
+        dateTitleSeperatorLine.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(dateTitleSeperatorLine)
+        NSLayoutConstraint.activate([
+            dateTitleSeperatorLine.topAnchor.constraint(equalTo: dateField.bottomAnchor, constant: -20),
+            dateTitleSeperatorLine.leftAnchor.constraint(equalTo: dreamTextField.leftAnchor),
+            dateTitleSeperatorLine.widthAnchor.constraint(equalTo: dreamTextField.widthAnchor),
+            dateTitleSeperatorLine.heightAnchor.constraint(equalToConstant: 0.7)
+            ])
+        
+        let tagsTitleSeperatorLine = UIView()
+        tagsTitleSeperatorLine.backgroundColor = .lightGray
+        tagsTitleSeperatorLine.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(tagsTitleSeperatorLine)
+        NSLayoutConstraint.activate([
+            tagsTitleSeperatorLine.topAnchor.constraint(equalTo: tagsField.bottomAnchor, constant: -20),
+            tagsTitleSeperatorLine.leftAnchor.constraint(equalTo: dreamTextField.leftAnchor),
+            tagsTitleSeperatorLine.widthAnchor.constraint(equalTo: dreamTextField.widthAnchor),
+            tagsTitleSeperatorLine.heightAnchor.constraint(equalToConstant: 0.7)
+            ])
     }
     
     func setupDescriptionTextInput() {
@@ -103,7 +139,7 @@ class InputFormView: UIView, UsingProgrammabaleConstraints {
             ])
         
         NSLayoutConstraint.activate([
-            descriptionTextView.topAnchor.constraint(equalTo: descriptionTitleLabel.bottomAnchor, constant: 8),
+            descriptionTextView.topAnchor.constraint(equalTo: descriptionTitleLabel.bottomAnchor),
             descriptionTextView.centerXAnchor.constraint(equalTo: centerXAnchor),
             descriptionTextView.widthAnchor.constraint(equalTo: widthAnchor, constant: -12),
             descriptionTextView.heightAnchor.constraint(equalToConstant: 180)

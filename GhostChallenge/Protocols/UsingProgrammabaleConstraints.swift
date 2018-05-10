@@ -6,10 +6,9 @@
 //  Copyright © 2018 Chris Karani. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 internal protocol UsingProgrammabaleConstraints {
-     //General UI Setup for the View
      func setupUI()
 }
 

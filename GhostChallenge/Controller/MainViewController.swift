@@ -8,74 +8,43 @@
 
 import UIKit
 
-
-
 class MainViewController: UITableViewController {
     
+    let dataSource = MainTableViewDataSource()
+    private let inputFormView = InputFormView()
+
     lazy var searchController : UISearchController = {
         let searchController = UISearchController(searchResultsController: nil)
-        searchController.delegate = self
+        //searchController.delegate = self
+        searchController.searchBar.delegate = self
+//        searchController.searchBar.scopeButtonTitles = ["Title", "Date", "Tags"]
+//        searchController.searchBar.showsScopeBar = true
         return searchController
     }()
     
-    private func cellIdentifier() -> String {
+    public static func cellIdentifier() -> String {
         return "CellID"
     }
     
-    
-    let inputFormView = InputFormView()
-    
-    private func setupUI() {
-        //inputContainerView
-        view.addSubview(inputFormView)
-        inputFormView.delegate = self
-        inputFormView.isHidden = true
-        inputFormView.layer.cornerRadius = 5
-        inputFormView.layer.borderWidth = 2
-        inputFormView.layer.borderColor = UIColor.black.cgColor
-        NSLayoutConstraint.activate([
-            inputFormView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            inputFormView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 25),
-            inputFormView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -50),
-            inputFormView.heightAnchor.constraint(equalTo: view.heightAnchor, constant: -150)
-            ])
-    }
-    
-    func setupNavigationBar() {
-        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(handleAddButton))
-        navigationItem.rightBarButtonItem = addButton
-        
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.title = "Dream Portal"
-        navigationItem.searchController = searchController
-        navigationItem.hidesSearchBarWhenScrolling = false
-        searchController.hidesNavigationBarDuringPresentation = false
-    }
-    
-    @objc func handleAddButton() {
-        inputFormView.isHidden = false
-    }
-    
-    func handleCellRegistration() {
-        tableView.register(TableViewCustomCell.self, forCellReuseIdentifier: cellIdentifier())
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        handleCellRegistration()
+        handleTableViewSetup()
         setupNavigationBar()
-        setupUI()
-        // Do any additional setup after loading the view, typically from a nib.
+        setupGestureRecognizers()
+        setupNotificationObservers()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        removeNotificationObserver()
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    override var canResignFirstResponder: Bool {
+        return true
     }
-
-
 }
+
 
 extension MainViewController: InputFormViewDelegate {
     func didTapSaveButton(forView view: InputFormView) {
@@ -84,27 +53,122 @@ extension MainViewController: InputFormViewDelegate {
         guard let tags = view.tagsField.inputTextField.text else { return }
         guard let descrition = view.descriptionTextView.text else { return }
         
-        let dream = Dream(title: title, dateString: date, tags: [tags], description: descrition)
-        DreamDatabase.database.data.append( dream)
+        let tagsArray = tags.components(separatedBy: " ")
+        
+        let dream = Dream(title: title, dateString: date, tags: tagsArray, description: descrition)
+        DreamDatabase.DatabaseData.add(toDatabase: dream)
         tableView.reloadData()
+        handleViewDismisAction()
         view.isHidden = true
     }
 }
 
-extension MainViewController:  UISearchControllerDelegate {
-     
-}
-extension MainViewController {
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return DreamDatabase.database.data.count
+extension MainViewController:  UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        handleSearchFunctionality(withSearchBar: searchBar)
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let dream = DreamDatabase.database.data[indexPath.row]
-        let dreamCell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(), for: indexPath) as! TableViewCustomCell
-        dreamCell.textLabel?.text = dream.title
-        dreamCell.detailTextLabel?.text = dream.dateString
-        return dreamCell
+    private func handleSearchFunctionality(withSearchBar searchbar: UISearchBar) {
+        guard let searchText = searchbar.text else { return }
+        
+        
+        dataSource.filteredDreams = dataSource.dreams.filter({ (dream) -> Bool in
+            return dream.title.localizedLowercase.contains(searchText.localizedLowercase)
+        })
+        if searchText.isEmpty {
+            dataSource.filteredDreams = dataSource.dreams
+        }
+        
+        self.tableView.reloadData()
+    }
+}
+
+//MARK: Setup UI
+extension MainViewController {
+    private func setupNavigationBar() {
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(handleAddButton))
+        navigationItem.rightBarButtonItem = addButton
+        navigationItem.title = "Dream Portal";
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
+        navigationController?.navigationBar.tintColor = .white
+        navigationController?.navigationBar.barTintColor = UIColor.rgb(44, 44, 44)
+        navigationController?.navigationBar.titleTextAttributes = [
+            .foregroundColor: UIColor.white,
+            .font: UIFont.boldSystemFont(ofSize: 30),
+        ]
+        searchController.hidesNavigationBarDuringPresentation = false
+    }
+    
+    private func presentInputForm() {
+        blurrViewBackground()
+        view.addSubview(inputFormView)
+        inputFormView.delegate = self
+        inputFormView.isHidden = false
+        navigationController?.setNavigationBarHidden(true, animated: true)
+        inputFormView.layer.cornerRadius = 5
+        inputFormView.layer.borderWidth = 2
+        inputFormView.layer.borderColor = UIColor.black.cgColor
+        NSLayoutConstraint.activate([
+            inputFormView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            inputFormView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            inputFormView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -50),
+            inputFormView.heightAnchor.constraint(equalTo: view.heightAnchor, constant: -150)
+            ])
+    }
+    
+    // handles blurring of the background and possible animations
+    fileprivate func blurrViewBackground() {
+        guard let window = UIApplication.shared.keyWindow else { return }
+        let effect = UIBlurEffect(style: .regular)
+        let visualEffect = UIVisualEffectView(effect: effect)
+        visualEffect.frame = window.bounds
+        view.addSubview(visualEffect)
+    }
+    
+    func handleTableViewSetup() {
+        tableView.register(TableViewCustomCell.self, forCellReuseIdentifier: MainViewController.cellIdentifier())
+        tableView.dataSource = dataSource
+        tableView.estimatedRowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableViewAutomaticDimension
+        
+        dataSource.searchController = searchController
+    }
+}
+
+// MARK: User Interaction
+extension MainViewController {
+    @objc fileprivate func handleViewDismisAction() {
+        inputFormView.removeFromSuperview()
+        navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+    
+    fileprivate func setupGestureRecognizers() {
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(handleViewDismisAction))
+        view.addGestureRecognizer(gesture)
+    }
+    
+    
+    @objc func handleAddButton() {
+        presentInputForm()
+    }
+}
+
+// Notifications
+extension MainViewController {
+    fileprivate func setupNotificationObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadTableView(_:)), name: .dataRetrieved, object: nil)
+    }
+    
+    fileprivate func removeNotificationObserver() {
+        NotificationCenter.default.removeObserver(self, name: Notification.Name.dataRetrieved, object: nil)
+    }
+    
+    @objc fileprivate func reloadTableView(_ notificiation: Notification) {
+        DispatchQueue.main.async { [unowned self] in
+            self.tableView.reloadData()
+        }
     }
 }
 
